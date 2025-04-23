@@ -449,15 +449,15 @@ cdef class ParserState:
         return len(self.state_stack) == len(other.state_stack) and self.position == other.position
 
     def __copy__(self):
+        return self.copy()
+
+    def copy(self, deepcopy_values=True):
         return type(self)(
             self.parse_conf,
             self.lexer, # XXX copy
             copy(self.state_stack),
-            deepcopy(self.value_stack),
+            deepcopy(self.value_stack) if deepcopy_values else copy(self.value_stack),
         )
-
-    def copy(self):
-        return copy(self)
 
     cpdef feed_token(self, Token token, bint is_end=False):
         cdef:
