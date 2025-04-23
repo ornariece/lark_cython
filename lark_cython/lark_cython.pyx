@@ -410,7 +410,8 @@ cdef class ParseConf:
 
     cdef public parse_table
     cdef public int start_state, end_state
-    cdef dict states, callbacks
+    cdef public dict callbacks
+    cdef dict states
     cdef str start
 
     def __init__(self, parse_table, callbacks, start):
